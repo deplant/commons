@@ -1,4 +1,4 @@
-# java4ever-utils
+# Java Commons
 
 [![JDK version](https://img.shields.io/badge/Java-20-green.svg)](https://shields.io/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-brown.svg)](https://shields.io/)
