@@ -17,7 +17,7 @@ Deplant projects. It can be used independently if needed.
 
 ```groovy
 dependencies {
-    implementation 'tech.deplant:commons:0.4.0'
+    implementation 'tech.deplant.commons:commons-core:0.4.0'
 }
 ```
 
@@ -26,8 +26,8 @@ dependencies {
 ```xml
 
 <dependency>
-    <groupId>tech.deplant</groupId>
-    <artifactId>commons</artifactId>
+    <groupId>tech.deplant.commons</groupId>
+    <artifactId>commons-core</artifactId>
     <version>0.4.0</version>
 </dependency>
 ```

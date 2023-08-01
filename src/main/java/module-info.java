@@ -1,4 +1,4 @@
-module java4ever.utils {
+module deplant.commons {
 	exports tech.deplant.commons;
 	exports tech.deplant.commons.regex;
 }
