@@ -167,7 +167,7 @@ public class Strings {
 		return toHexString(text.getBytes(StandardCharsets.UTF_8));
 	}
 
-	public static String fromHexString(String text) {
+	public static byte[] hexStringToBytes(String text) {
 		final int len = text.length();
 
 		// "111" is not a valid hex encoding.
@@ -184,7 +184,11 @@ public class Strings {
 			}
 			out[i / 2] = (byte) (h * 16 + l);
 		}
-		return new String(out, StandardCharsets.UTF_8);
+		return out;
+	}
+
+	public static String hexStringToString(String text) {
+		return new String(hexStringToBytes(text), StandardCharsets.UTF_8);
 	}
 
 	/**
