@@ -1,3 +1,7 @@
+### 0.5.0
+
+- Added Strings.toHexString(bytes[]) method
+
 ### 0.4.0
 
 - Updated Gradle -> 8.2

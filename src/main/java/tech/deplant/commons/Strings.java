@@ -144,18 +144,27 @@ public class Strings {
 	/**
 	 * Utility method for preparing hex strings
 	 *
-	 * @param text Text string to encode.
+	 * @param data Bytes to encode.
 	 * @return Hex string
 	 */
-	public static String toHexString(String text) {
+	public static String toHexString(byte[] data) {
 		final char[] hexCode = "0123456789ABCDEF".toCharArray();
-		final byte[] data = text.getBytes(StandardCharsets.UTF_8);
 		final StringBuilder r = new StringBuilder(data.length * 2);
 		for (byte b : data) {
 			r.append(hexCode[(b >> 4) & 0xF]);
 			r.append(hexCode[(b & 0xF)]);
 		}
 		return r.toString();
+	}
+
+	/**
+	 * Utility method for preparing hex strings
+	 *
+	 * @param text Text string to encode.
+	 * @return Hex string
+	 */
+	public static String toHexString(String text) {
+		return toHexString(text.getBytes(StandardCharsets.UTF_8));
 	}
 
 	public static String fromHexString(String text) {
