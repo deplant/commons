@@ -1,4 +1,4 @@
-package tech.deplant.commons.test.unit;
+package tech.deplant.commons.test.unit.regexp;
 
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

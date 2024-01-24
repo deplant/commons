@@ -1,3 +1,9 @@
+### 0.6.0
+
+- Added more features to RegEx engine
+- Added github workflow
+- Updated baseline JDK -> 21
+
 ### 0.5.0
 
 - Added Strings.toHexString(bytes[]) method
