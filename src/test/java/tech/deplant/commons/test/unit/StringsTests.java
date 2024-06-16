@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.parallel.Execution;
 import org.junit.jupiter.api.parallel.ExecutionMode;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import tech.deplant.commons.Strings;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -13,15 +15,65 @@ import tech.deplant.commons.Strings;
 public class StringsTests {
 
 	@Test
-	public void notEmpty_shows_correct_booleans() {
-		String str1 = "NotNull";
-		String str2 = "";
-		String str3 = "        ";
-		String str4 = null;
-		Assertions.assertTrue(Strings.isNotEmpty(str1));
-		Assertions.assertFalse(Strings.isNotEmpty(str2));
-		Assertions.assertFalse(Strings.isNotEmpty(str3));
-		Assertions.assertFalse(Strings.isNotEmpty(str4));
+	public void null_string_is_detected_as_empty() {
+		Assertions.assertTrue(Strings.isEmpty(null));
+		Assertions.assertFalse(Strings.isNotEmpty(null));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"", "        "})
+	public void empty_string_variants_are_detected_as_empty(String str) {
+		Assertions.assertTrue(Strings.isEmpty(str));
+		Assertions.assertFalse(Strings.isNotEmpty(str));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"o","NotNull", "    Surrounded    "})
+	public void nonempty_string_variants_are_detected_as_nonempty(String str) {
+		Assertions.assertTrue(Strings.isNotEmpty(str));
+		Assertions.assertFalse(Strings.isEmpty(str));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"-0e34a29F", "0e34a29F", "00", "0x00", "01", "abefcd", "0x0e34a29Fb3", "-0x0e34a29Fb3"})
+	public void hex_strings_are_detected_as_hexes(String str) {
+		Assertions.assertTrue(Strings.isHexadecimal(str));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"-0x", "0x", "-x", "xx", "0", "01zz", "abefc", "0x0e34a29Fb", "-0x-0e34a29Fb3"})
+	public void incorrect_hex_strings_are_not_detected_as_hexes(String str) {
+		Assertions.assertFalse(Strings.isHexadecimal(str));
+	}
+
+
+	@ParameterizedTest
+	@ValueSource(strings = {"[a-z]*","b+", "10"})
+	public void string_matches_patterns(String pattern) {
+		Assertions.assertTrue(Strings.matchesPattern("ab10yum",pattern));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"b+", "10"})
+	public void string_not_matches_patterns(String pattern) {
+		Assertions.assertFalse(Strings.matchesPattern("A",pattern));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"ab    hello!","crab   world", "crab\n\n\t\tworld"})
+	public void pattern_matches_strings(String str) {
+		Assertions.assertTrue(Strings.matchesPattern(str,"ab\\s{1,3}[a-z]*"));
+	}
+
+	@ParameterizedTest
+	@ValueSource(strings = {"crabworld"})
+	public void pattern_not_matches_strings(String str) {
+		Assertions.assertFalse(Strings.matchesPattern(str,"ab\\s{1,3}[a-z]*"));
+	}
+
+	@Test
+	public void check_start_with() {
+		Assertions.assertFalse("1".startsWith("0x"));
 	}
 
 	@Test

@@ -8,8 +8,15 @@ group v_groupId
 version v_version
 
 repositories {
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/deplant/maven-artifactory")
+        credentials {
+            username = githubUsername
+            password = githubUploadToken
+        }
+    }
     mavenCentral()
-    mavenLocal()
 }
 
 dependencies {
@@ -21,6 +28,7 @@ dependencies {
 
     // JUnit 5
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
@@ -28,18 +36,18 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/" + v_repository)
+            url = uri("https://maven.pkg.github.com/deplant/maven-artifactory")
             credentials {
-                username = System.getenv("USERNAME")
-                password = System.getenv("GH_PACKAGES_UPLOAD_TOKEN")
+                username = githubUsername
+                password = githubUploadToken
             }
         }
         maven {
             name = "Sonatype"
             url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             credentials {
-                username = System.getenv("OSSRH_USERNAME")
-                password = System.getenv("OSSRH_PASSWORD")
+                username = ossrhUsername
+                password = ossrhPassword
             }
         }
     }
@@ -96,39 +104,35 @@ java {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_22
+    targetCompatibility = JavaVersion.VERSION_22
     javaCompiler = javaToolchains.compilerFor {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(22)
     }
-    options.compilerArgs += "--enable-preview"
 }
 
 tasks.withType(JavaExec).configureEach {
     javaLauncher = javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(22)
     }
-    jvmArgs += "--enable-preview"
 }
 
 tasks.withType(Test) {
     useJUnitPlatform()
     javaLauncher = javaToolchains.launcherFor {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(22)
     }
-    jvmArgs += "--enable-preview"
 }
 
 tasks.withType(Javadoc).configureEach {
     javadocTool = javaToolchains.javadocToolFor {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(22)
     }
     failOnError false
     options.addBooleanOption('html5', true)
     options.addStringOption('encoding', 'UTF-8')
     options.addStringOption('charSet', 'UTF-8')
-    options.addBooleanOption('-enable-preview', true)
-    options.addStringOption('-release', '21')
+    options.addStringOption('-release', '22')
     options.addBooleanOption('-ignore-source-errors', true)
     options.addStringOption('Xdoclint:none', '-quiet')
 }

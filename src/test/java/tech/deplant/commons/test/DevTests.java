@@ -1,6 +1,9 @@
 package tech.deplant.commons.test;
 
 import org.junit.jupiter.api.Test;
+import tech.deplant.commons.test.unit.json.*;
+
+import java.util.Map;
 
 public class DevTests {
 
@@ -67,6 +70,21 @@ public class DevTests {
 		a = a + b; // a1 = a + b;
 		b = a - b; // b1 = a1 - b = (a + b) - b = a
 		a = a - b; // a2 = a1 - b1;  = (a + b) - a = b
+	}
+
+	@Test
+	public void test_2() {
+		var jsonObject = new JsonObject(Map.of("inner",
+		                                       new JsonObject(Map.of("innerArr",
+		                                                             new JsonArray(new JsonElement[]{new JsonString(
+				                                                             "arrStr1"), new JsonString("arrStr2")}))),
+		                                       "str",
+		                                       new JsonString("hello world!"),
+		                                       "num",
+		                                       new JsonNumber(80.65),
+		                                       "emptyArr",
+		                                       new JsonArray(new JsonElement[]{})));
+		System.out.println(jsonObject.stringify());
 	}
 
 	@Test

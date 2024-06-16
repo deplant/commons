@@ -4,11 +4,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.HexFormat;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.regex.Pattern;
 
 import static tech.deplant.commons.Objs.*;
 
 public class Strings {
+
+	private static final Pattern HEXADECIMAL_PATTERN = Pattern.compile("\\p{XDigit}+");
 
 	public static boolean isEmpty(String str) {
 		return isNull(str) || str.isBlank();
@@ -44,6 +48,41 @@ public class Strings {
 			throw notNull(exceptionSupplier).get();
 		}
 		return str;
+	}
+
+	public static boolean matchesPattern(String str, String patternString) {
+		return matchesPattern(str, Pattern.compile(patternString));
+	}
+
+	public static boolean matchesPattern(String str, Pattern pattern) {
+		return pattern.matcher(str).find();
+	}
+
+	public static Predicate<String> matchesPatterPredicate(String patternString) {
+		return Pattern.compile(patternString).asMatchPredicate();
+	}
+
+	private static String cleanHexadecimalPrefix(String str) {
+		if (Objs.isNull(str)) {
+			return null;
+		} else if (str.startsWith("0x")) {
+			return substr(str,2);
+		} else if (str.startsWith("-0x")) {
+			return substr(str,3);
+		} else if (str.startsWith("-")) {
+			return substr(str,1);
+		} else {
+			return str;
+		}
+	}
+
+	public static boolean isHexadecimal(String str) {
+		final String stringWithoutPrefix = cleanHexadecimalPrefix(str);
+		return isNotEmpty(stringWithoutPrefix) && stringWithoutPrefix.length() % 2 == 0 && HEXADECIMAL_PATTERN.matcher(stringWithoutPrefix).matches();
+	}
+
+	public static Predicate<String> isHexadecimalPredicate() {
+		return HEXADECIMAL_PATTERN.asMatchPredicate();
 	}
 
 	public static String notEmptyElse(String str, String defaultStr) {
