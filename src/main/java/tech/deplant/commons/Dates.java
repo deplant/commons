@@ -17,7 +17,7 @@ public class Dates {
 	}
 
 	public static Instant fromUnixHexString(String hexString) {
-		return fromUnixLong(Numbers.hexStringToLong(hexString));
+		return fromUnixLong(Hexes.asUint64(hexString));
 	}
 
 	public static String toIsoString(Instant utcMoment, int offsetMillis) {

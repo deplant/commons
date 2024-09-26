@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @Execution(ExecutionMode.CONCURRENT)
-public class RegExpBuilderTests {
+public class RegExpressionTests {
 
 	@Test
 	public void test_markdown_links_search() {

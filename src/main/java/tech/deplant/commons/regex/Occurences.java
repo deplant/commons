@@ -1,7 +1,7 @@
 package tech.deplant.commons.regex;
 
-public record Occurences(RegExpBuilder expr, Integer min, Integer max) implements RegExpBuilder {
-	public Occurences(RegExpBuilder expr, Integer min) {
+public record Occurences(RegExpression expr, Integer min, Integer max) implements RegExpression {
+	public Occurences(RegExpression expr, Integer min) {
 		this(expr, min, null);
 	}
 

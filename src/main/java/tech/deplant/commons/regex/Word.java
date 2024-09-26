@@ -5,7 +5,7 @@ package tech.deplant.commons.regex;
  *
  * @param word
  */
-public record Word(CharSequence word) implements RegExpBuilder {
+public record Word(CharSequence word) implements RegExpression {
 	@Override
 	public String build() {
 		StringBuilder builder = new StringBuilder();

@@ -1,6 +1,6 @@
 package tech.deplant.commons.regex;
 
-public record Special(String sym) implements RegExpBuilder {
+public record Special(String sym) implements RegExpression {
 	public static Special LATIN_LOWER = new Special("a-z");
 	public static Special LATIN_UPPER = new Special("A-Z");
 	public static Special DIGIT = new Special("\\d");

@@ -1,8 +1,7 @@
 package tech.deplant.commons;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.HexFormat;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -13,6 +12,7 @@ import static tech.deplant.commons.Objs.*;
 public class Strings {
 
 	private static final Pattern HEXADECIMAL_PATTERN = Pattern.compile("\\p{XDigit}+");
+	private final static String SPLIT_PATTERN = "[\\s_\\-.]+";
 
 	public static boolean isEmpty(String str) {
 		return isNull(str) || str.isBlank();
@@ -66,11 +66,11 @@ public class Strings {
 		if (Objs.isNull(str)) {
 			return null;
 		} else if (str.startsWith("0x")) {
-			return substr(str,2);
+			return substr(str, 2);
 		} else if (str.startsWith("-0x")) {
-			return substr(str,3);
+			return substr(str, 3);
 		} else if (str.startsWith("-")) {
-			return substr(str,1);
+			return substr(str, 1);
 		} else {
 			return str;
 		}
@@ -78,7 +78,8 @@ public class Strings {
 
 	public static boolean isHexadecimal(String str) {
 		final String stringWithoutPrefix = cleanHexadecimalPrefix(str);
-		return isNotEmpty(stringWithoutPrefix) && stringWithoutPrefix.length() % 2 == 0 && HEXADECIMAL_PATTERN.matcher(stringWithoutPrefix).matches();
+		return isNotEmpty(stringWithoutPrefix) && stringWithoutPrefix.length() % 2 == 0 &&
+		       HEXADECIMAL_PATTERN.matcher(stringWithoutPrefix).matches();
 	}
 
 	public static Predicate<String> isHexadecimalPredicate() {
@@ -178,6 +179,76 @@ public class Strings {
 		sb.append(inputString);
 
 		return sb.toString();
+	}
+
+	/**
+	 * Pascal case is a casing style in which the words for a class or type name are joined together
+	 * and the first letter of each is capitalized, such as PascalCase
+	 * Example: first_name -> FirstName
+	 *
+	 * @param text to process
+	 * @return pascal-cased test
+	 */
+	public static String toPascalCase(String text) {
+		var builder = new StringBuilder();
+		String[] split = text.split(SPLIT_PATTERN);
+		for (int i = 0; i < split.length; i++) {
+			var str = split[i].toLowerCase();
+			builder.append(Strings.substr(str, 0, 1).toUpperCase(Locale.ROOT) + Strings.substr(str, 1));
+		}
+		return builder.toString();
+	}
+
+	/**
+	 * Camel case is a casing style in which the words for a class or type name are joined together
+	 * and the first letter of each word starting from second is capitalized, such as camelCase
+	 * Example: first_name -> firstName
+	 *
+	 * @param text to process
+	 * @return camel-cased test
+	 */
+	public static String toCamelCase(String text) {
+		var builder = new StringBuilder();
+		String[] split = text.split(SPLIT_PATTERN);
+		for (int i = 0; i < split.length; i++) {
+			var str = split[i].toLowerCase();
+			if (i > 0) {
+				builder.append(Strings.substr(str, 0, 1).toUpperCase(Locale.ROOT) + Strings.substr(str, 1));
+			} else {
+				builder.append(str);
+			}
+		}
+		return builder.toString();
+	}
+
+	public static String toKebabCase(String text) {
+		List<String> lst = new ArrayList<>();
+		String[] split = text.split(SPLIT_PATTERN);
+		for (int i = 0; i < split.length; i++) {
+			var str = split[i].toLowerCase();
+			lst.add(str);
+		}
+		return String.join("-", lst);
+	}
+
+	public static String toSnakeCase(String text) {
+		List<String> lst = new ArrayList<>();
+		String[] split = text.split(SPLIT_PATTERN);
+		for (int i = 0; i < split.length; i++) {
+			var str = split[i].toLowerCase();
+			lst.add(str);
+		}
+		return String.join("_", lst);
+	}
+
+	public static String toLowerDotCase(String text) {
+		List<String> lst = new ArrayList<>();
+		String[] split = text.split(SPLIT_PATTERN);
+		for (int i = 0; i < split.length; i++) {
+			var str = split[i].toLowerCase();
+			lst.add(str);
+		}
+		return String.join(".", lst);
 	}
 
 	/**

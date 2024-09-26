@@ -1,3 +1,13 @@
+### 0.9.0
+
+- Added Strings.toCamelCase, Strings::toKebabCase, Strings::toPascalCase, 
+Strings::toSnakeCase, Strings::toLowerDotCase
+- Fixes and improvments in Hexes utils
+
+### 0.8.0
+
+- Rework of Hex representation utils
+
 ### 0.6.0
 
 - Added more features to RegEx engine

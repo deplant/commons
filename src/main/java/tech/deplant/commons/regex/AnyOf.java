@@ -8,7 +8,7 @@ package tech.deplant.commons.regex;
  *
  * @param item An item is a character, a character class expression, or a range expression
  */
-public record AnyOf(Word item) implements RegExpBuilder {
+public record AnyOf(Word item) implements RegExpression {
 	@Override
 	public String build() {
 		return String.format("[%s]", item().build());

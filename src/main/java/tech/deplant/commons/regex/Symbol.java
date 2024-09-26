@@ -1,6 +1,6 @@
 package tech.deplant.commons.regex;
 
-public record Symbol(char symbol) implements RegExpBuilder {
+public record Symbol(char symbol) implements RegExpression {
 	@Override
 	public String build() {
 		String str = String.valueOf(symbol());

@@ -1,8 +1,13 @@
 package tech.deplant.commons.test;
 
 import org.junit.jupiter.api.Test;
+import tech.deplant.commons.jodan.JsonInput;
 import tech.deplant.commons.test.unit.json.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Map;
 
 public class DevTests {
@@ -85,6 +90,30 @@ public class DevTests {
 		                                       "emptyArr",
 		                                       new JsonArray(new JsonElement[]{})));
 		System.out.println(jsonObject.stringify());
+	}
+
+	@Test
+	public void test_3() throws URISyntaxException, IOException {
+		String NFT_ABI = Files.readString(Paths.get(DevTests.class.getClassLoader()
+		                                                          .getResource(
+				                                                          "Nft.abi.json")
+		                                                          .toURI()));
+		String EVER_SDK_API = Files.readString(Paths.get(DevTests.class.getClassLoader()
+		                                                          .getResource(
+				                                                          "api.json")
+		                                                          .toURI()));
+		JsonInput.parse("  { \"name\":\"Text\" }  ");
+		JsonInput.parse("""
+							{
+								"name": "sendGrams",
+								"inputs": [
+									{"name": "dest", "type": "address"},
+									{"name": "amount", "type": "uint64"}
+								],
+								"outputs": []
+							}""");
+		JsonInput.parse(NFT_ABI);
+		JsonInput.parse(EVER_SDK_API);
 	}
 
 	@Test

@@ -18,28 +18,30 @@ public class SpecialCharsTests {
 	public void digits_search_test() {
 		var expr = Special.DIGIT;
 		assertEquals("7", expr.substr("da dy7%uss8"));
-		assertEquals("8", expr.substr(6,"da dy7%uss8"));
+		assertEquals("8", expr.substr(2,"da dy7%uss8"));
+		assertEquals("", expr.substr(3,"da dy7%uss8"));
 	}
 
 	@Test
 	public void not_digits_search_test() {
 		var expr = Special.NOT_DIGIT;
 		assertEquals("d", expr.substr("da dy7%uss8"));
-		assertEquals("%", expr.substr(6,"da dy7%uss8"));
+		assertEquals("y", expr.substr(5,"da dy7%uss8"));
 	}
 
 	@Test
 	public void alphanum_search_test() {
 		var expr = Special.ALPHANUM;
 		assertEquals("d", expr.substr("da dy7%uss8"));
-		assertEquals("u", expr.substr(6,"da dy7%uss8"));
+		assertEquals("7", expr.substr(5,"da dy7%uss8"));
 	}
 
 	@Test
 	public void not_alphanum_search_test() {
 		var expr = Special.NOT_ALPHANUM;
 		assertEquals(" ", expr.substr("da dy7%uss8"));
-		assertEquals("%", expr.substr(6,"da dy7%uss8"));
+		assertEquals("%", expr.substr(2,"da dy7%uss8"));
+		assertEquals("", expr.substr(3,"da dy7%uss8"));
 	}
 
 }

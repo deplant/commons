@@ -46,6 +46,41 @@ public class StringsTests {
 		Assertions.assertFalse(Strings.isHexadecimal(str));
 	}
 
+	@Test
+	public void toCamelCase_equals_predicted() {
+		Assertions.assertEquals("firstWord",Strings.toCamelCase("first_word"));
+		Assertions.assertEquals("firstWord",Strings.toCamelCase("First.word"));
+		Assertions.assertEquals("firstWord",Strings.toCamelCase("first  word"));
+	}
+
+	@Test
+	public void toPascalCase_equals_predicted() {
+		Assertions.assertEquals("FirstWord",Strings.toPascalCase("first_word"));
+		Assertions.assertEquals("FirstWord",Strings.toPascalCase("First.word"));
+		Assertions.assertEquals("FirstWord",Strings.toPascalCase("first  word"));
+	}
+
+	@Test
+	public void toKebabCase_equals_predicted() {
+		Assertions.assertEquals("first-word",Strings.toKebabCase("first_word"));
+		Assertions.assertEquals("first-word",Strings.toKebabCase("First.word"));
+		Assertions.assertEquals("first-word",Strings.toKebabCase("first  word"));
+	}
+
+	@Test
+	public void toSnakeCase_equals_predicted() {
+		Assertions.assertEquals("first_word",Strings.toSnakeCase("first_word"));
+		Assertions.assertEquals("first_word",Strings.toSnakeCase("First.word"));
+		Assertions.assertEquals("first_word",Strings.toSnakeCase("first  word"));
+	}
+
+	@Test
+	public void toLowerDotCase_equals_predicted() {
+		Assertions.assertEquals("first.word",Strings.toLowerDotCase("first_word"));
+		Assertions.assertEquals("first.word",Strings.toLowerDotCase("First.word"));
+		Assertions.assertEquals("first.word",Strings.toLowerDotCase("first  word"));
+	}
+
 
 	@ParameterizedTest
 	@ValueSource(strings = {"[a-z]*","b+", "10"})
