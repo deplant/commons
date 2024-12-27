@@ -5,7 +5,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
-public class Dates {
+public class Dt {
 
 
 	public static Instant fromUnixLong(long unixTimeLong) {
@@ -17,7 +17,7 @@ public class Dates {
 	}
 
 	public static Instant fromUnixHexString(String hexString) {
-		return fromUnixLong(Hexes.asUint64(hexString));
+		return fromUnixLong(Hx.asUint64(hexString));
 	}
 
 	public static String toIsoString(Instant utcMoment, int offsetMillis) {

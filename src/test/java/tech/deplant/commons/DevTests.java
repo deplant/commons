@@ -1,8 +1,8 @@
-package tech.deplant.commons.test;
+package tech.deplant.commons;
 
 import org.junit.jupiter.api.Test;
 import tech.deplant.commons.jodan.JsonInput;
-import tech.deplant.commons.test.unit.json.*;
+import tech.deplant.commons.jodan.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

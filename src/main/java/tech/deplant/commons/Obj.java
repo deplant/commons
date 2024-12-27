@@ -3,7 +3,7 @@ package tech.deplant.commons;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Objs {
+public class Obj {
 
 	public static <OUT,IN> OUT decode(IN obj, IN compare, OUT then, OUT orElse) {
 		return equals(obj, compare) ? then : orElse;

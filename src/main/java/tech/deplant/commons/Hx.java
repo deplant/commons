@@ -4,20 +4,20 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HexFormat;
 
-public class Hexes {
+public class Hx {
 
 	private static String cleanHexString(String hexString) {
 		boolean isNegative = false;
-		if (Strings.isEmpty(hexString)) {
+		if (St.isEmpty(hexString)) {
 			return "00";
 		} else if (hexString.startsWith("0x")) {
-			hexString = Strings.notEmptyElse(Strings.substr(hexString, 2), "00");
+			hexString = St.notEmptyElse(St.substr(hexString, 2), "00");
 		} else if (hexString.startsWith("-0x")) {
 			isNegative = true;
-			hexString = Strings.notEmptyElse(Strings.substr(hexString, 3), "00");
+			hexString = St.notEmptyElse(St.substr(hexString, 3), "00");
 		} else if (hexString.startsWith("-")) {
 			isNegative = true;
-			hexString = Strings.notEmptyElse(Strings.substr(hexString, 1), "00");
+			hexString = St.notEmptyElse(St.substr(hexString, 1), "00");
 		}
 		if ((hexString.length() % 2 != 0)) {
 			hexString = "0" + hexString;
@@ -25,7 +25,7 @@ public class Hexes {
 		if (isNegative) {
 			hexString = "-" + hexString;
 		}
-		return Strings.notEmptyElse(hexString, "00");
+		return St.notEmptyElse(hexString, "00");
 	}
 
 	private static byte[] asBytes(String hexString) {

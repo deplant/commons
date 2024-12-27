@@ -1,4 +1,4 @@
-package tech.deplant.commons.test.unit.json;
+package tech.deplant.commons.jodan;
 
 public record JsonBoolean(boolean value) implements JsonValue {
 	@Override

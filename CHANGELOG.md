@@ -1,8 +1,12 @@
+### 0.10.0
+
+- Result class
+
 ### 0.9.0
 
-- Added Strings.toCamelCase, Strings::toKebabCase, Strings::toPascalCase, 
-Strings::toSnakeCase, Strings::toLowerDotCase
-- Fixes and improvments in Hexes utils
+- Added `Strings.toCamelCase`, `Strings::toKebabCase`, `Strings::toPascalCase`, 
+`Strings::toSnakeCase`, `Strings::toLowerDotCase`
+- Fixes and improvements for working with `Hexes`
 
 ### 0.8.0
 

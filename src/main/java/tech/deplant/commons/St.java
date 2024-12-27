@@ -1,18 +1,47 @@
 package tech.deplant.commons;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 
-import static tech.deplant.commons.Objs.*;
+import static tech.deplant.commons.Obj.*;
 
-public class Strings {
+public class St {
 
 	private static final Pattern HEXADECIMAL_PATTERN = Pattern.compile("\\p{XDigit}+");
 	private final static String SPLIT_PATTERN = "[\\s_\\-.]+";
+
+	/**
+	 * Downloads a file from URL and converts it into String
+	 *
+	 * @param path URL address in the network
+	 * @return file contents as String
+	 */
+	public static String ofFile(String path) throws IOException {
+		return Files.readString(Path.of(URI.create(path)));
+	}
+
+	/**
+	 * Downloads a file from URL and converts it into String
+	 *
+	 * @param path URL address in the network
+	 * @return file contents as String
+	 */
+	public static String ofUrl(String path) throws IOException {
+		var con = URI.create(path).toURL().openConnection();
+		var output = new ByteArrayOutputStream();
+		con.getInputStream().transferTo(output);
+		return output.toString();
+	}
 
 	public static boolean isEmpty(String str) {
 		return isNull(str) || str.isBlank();
@@ -63,7 +92,7 @@ public class Strings {
 	}
 
 	private static String cleanHexadecimalPrefix(String str) {
-		if (Objs.isNull(str)) {
+		if (Obj.isNull(str)) {
 			return null;
 		} else if (str.startsWith("0x")) {
 			return substr(str, 2);
@@ -194,7 +223,7 @@ public class Strings {
 		String[] split = text.split(SPLIT_PATTERN);
 		for (int i = 0; i < split.length; i++) {
 			var str = split[i].toLowerCase();
-			builder.append(Strings.substr(str, 0, 1).toUpperCase(Locale.ROOT) + Strings.substr(str, 1));
+			builder.append(St.substr(str, 0, 1).toUpperCase(Locale.ROOT) + St.substr(str, 1));
 		}
 		return builder.toString();
 	}
@@ -213,7 +242,7 @@ public class Strings {
 		for (int i = 0; i < split.length; i++) {
 			var str = split[i].toLowerCase();
 			if (i > 0) {
-				builder.append(Strings.substr(str, 0, 1).toUpperCase(Locale.ROOT) + Strings.substr(str, 1));
+				builder.append(St.substr(str, 0, 1).toUpperCase(Locale.ROOT) + St.substr(str, 1));
 			} else {
 				builder.append(str);
 			}
