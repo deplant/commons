@@ -1,6 +1,12 @@
-### 0.10.0
+### 0.11.0
 
-- Result class
+- Project divided by modules
+- Result API for managing return values and exceptions of methods
+that can result in error. It takes inspiration in 
+https://doc.rust-lang.org/std/result/ rust Result API. 
+Use pattern matching or more traditional conditional statements
+to manage results.
+- Fl API for common IO tasks
 
 ### 0.9.0
 
