@@ -2,7 +2,6 @@ package tech.deplant.commons.result;
 
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -11,7 +10,7 @@ import java.util.function.Supplier;
  * @param error holds Exception that triggered the creation of the Err result.
  * @param <T> type of the Ok result (not used in Err as is)
  */
-public record Err<T>(Exception error) implements Result<T> {
+public value record Err<T>(Exception error) implements Result<T> {
 
 	private static final System.Logger LOG = System.getLogger(Result.class.getName());
 

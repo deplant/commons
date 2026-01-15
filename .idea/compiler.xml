@@ -8,4 +8,11 @@
       <module name="commons.test" target="20" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="commons-core.result" options="--enable-preview" />
+      <module name="commons-core.result.main" options="--enable-preview" />
+      <module name="commons-core.result.test" options="--enable-preview" />
+    </option>
+  </component>
 </project>

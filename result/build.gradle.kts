@@ -7,8 +7,6 @@ plugins {
 group = "tech.deplant.commons"
 version = "0.11.3-SNAPSHOT"
 
-val jdkVersion = JavaLanguageVersion.of("25")
-
 repositories {
     mavenLocal()
     maven {
@@ -27,10 +25,6 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.junit.api)
     testRuntimeOnly(libs.junit.launcher)
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
 
 publishing {
@@ -94,33 +88,34 @@ signing {
 java {
     withJavadocJar()
     withSourcesJar()
-    sourceCompatibility = JavaVersion.VERSION_25
-    targetCompatibility = JavaVersion.VERSION_25
+    sourceCompatibility = JavaVersion.VERSION_26
+    targetCompatibility = JavaVersion.VERSION_26
     toolchain {
-        languageVersion = jdkVersion
+        languageVersion = JavaLanguageVersion.of("26")
     }
 }
 
-tasks.withType<JavaExec> {
-    javaLauncher = javaToolchains.launcherFor {
-        languageVersion = jdkVersion
+tasks {
+    withType<JavaExec> {
+        jvmArgs.add("--enable-preview")
     }
-}
 
-tasks.withType<Test> {
-    javaLauncher = javaToolchains.launcherFor {
-        languageVersion = jdkVersion
+    withType(JavaCompile::class.java).all {
+        options.compilerArgs.addAll(listOf("--enable-preview"))
     }
-    useJUnitPlatform()
 
-    filter {
-//include specific method in any of the tests
-//includeTestsMatching("*UiCheck")
+    withType<Test> {
+        useJUnitPlatform {}
+        jvmArgs.addAll(listOf("--enable-preview","-XX:+UseCompactObjectHeaders", "-XX:+UseShenandoahGC", "-XX:ShenandoahGCMode=generational"))
+        filter {
+            //include specific method in any of the tests
+            //includeTestsMatching("*UiCheck")
 
-//include all tests from package
-//includeTestsMatching("org.gradle.internal.*")
+            //include all tests from package
+            //includeTestsMatching("org.gradle.internal.*")
 
-//include all integration tests
-//excludeTestsMatching("*IntegrationTest")
-    }
+            //include all integration tests
+            //excludeTestsMatching("*IntegrationTest")
+        }
+      }
 }

@@ -2,7 +2,6 @@ package tech.deplant.commons.result;
 
 import java.util.Optional;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -11,7 +10,7 @@ import java.util.function.Supplier;
  * @param result wrapped value. You can retrieve it with orElse(), orElseThrow() or just result() if you pattern matched to Ok class.
  * @param <T> type of wrapped value
  */
-public record Ok<T>(T result) implements Result<T> {
+public value record Ok<T>(T result) implements Result<T> {
 	@Override
 	public boolean isOk() {
 		return true;

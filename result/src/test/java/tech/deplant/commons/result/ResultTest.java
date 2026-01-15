@@ -61,6 +61,11 @@ public class ResultTest {
 	}
 
 	@Test
+	void value_equals() {
+		assertTrue(Result.ofOptional(() -> Optional.of(256)) == Result.of(() -> Integer.valueOf(256)));
+	}
+
+	@Test
 	void ofOptional() {
 		assertInstanceOf(Err.class, Result.ofOptional(() -> null));
 		assertInstanceOf(Err.class, Result.ofOptional(Optional::empty));
